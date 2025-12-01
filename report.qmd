@@ -1,0 +1,13 @@
+---
+title: "IML term project 2025"
+format: typst
+execute:
+    echo: false
+jupyter: python3
+---
+
+{{< pagebreak >}}
+
+```{python}
+print("Wowza")
+```
