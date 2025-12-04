@@ -6,8 +6,43 @@ execute:
 jupyter: python3
 ---
 
+**Team:** Overfit & Chill  
+**Members:**  
+Christos Zonias  
+Kokoro Horiuchi  
+Mikhail Golubkov  
+
+**Date:** December 7, 2025
+
 {{< pagebreak >}}
 
+# Preliminary Report
+
+## 1. Introduction
+Brief introduction to the project and problem.
+
+## 2. Work Completed to Date
+### 2.1 Data Acquisition and Initial Setup
+- Description of data sources
+- Initial data loading and exploration
+- Environment setup and tools used
+
+### 2.2 Basic Ideas and Solution Approach
+- Overview of the proposed solution strategy
+- Initial hypotheses about the problem
+- Rationale behind chosen methodologies
+
+{{< pagebreak >}}
+
+## 3. Data Analysis Stages
+
+### 3.1 Initial Data Exploration
 ```{python}
-print("Wowza")
-```
+# Example code for initial data exploration
+import pandas as pd
+import numpy as np
+
+# Initial exploration
+print(df.head())
+print(df.info())
+print(df.describe())
