@@ -25,9 +25,29 @@ From a machine learning perspective, this represents a supervised classification
 
 ## 2. Work Completed to Date
 ### 2.1 Data Acquisition and Initial Setup
-- Description of data sources
-- Initial data loading and exploration
-- Environment setup and tools used
+Libraries Used:
+* pandas for data manipulation
+* numpy for numerical operations
+* matplotlib.pyplot for core plotting library
+
+Column Structure:
+* Each sensor measurement appears as pairs of .mean and .std columns.
+* Sensors include: CO2168, CO2336, CO242, CO2504, Glob, T672, T84, UV_A, UV_B, CS, and others.
+* Additional columns: id, class4, date, partlybad.
+
+Removed Columns (Data Handling):
+* date
+* partlybad 
+
+Feature Analysis:
+* Identified 10 features with minimal variance (top 4 are CS.std, CS.mean, PTG.std, PTG.mean)
+* Variance range: 4.6e-07 (CS.std) to 2.1e-02 (SO2168.std)
+* Created heatmap visualization
+![Caption](featurecorrelationheatmap.png)
+* To identify which features are most promising for distinguishing between the 4 classes of environmental events/conditions:
+![Caption](EDAfeatures.png)
+* Scatterplots of key feature pairs reveal that NPF events (Ia, Ib, II) primarily occur under high radiation and low humidity conditions. Nonevent days cluster in regions of low PAR.mean/Glob.mean and high RHIRGA336.mean. Temperature provides secondary separation, with nonevents frequently occurring on cold, humid days and events on warmer, sunnier days. The three event classes partly overlap, indicating that subclassification (Ia, Ib, II) is inherently more difficult than the binary event/nonevent classification.
+![Caption](scatterplot.png)
 
 ### 2.2 Basic Ideas and Solution Approach
 - Overview of the proposed solution strategy
@@ -40,11 +60,9 @@ From a machine learning perspective, this represents a supervised classification
 
 ### 3.1 Initial Data Exploration
 ```{python}
-# Example code for initial data exploration
-import pandas as pd
-import numpy as np
+print(np.shape(df))
+print(np.shape(df_test))
+df.describe()
 
-# Initial exploration
-print(df.head())
-print(df.info())
-print(df.describe())
+df = df.drop(["date", "partlybad"], axis=1)
+df.head()
