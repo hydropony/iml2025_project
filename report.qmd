@@ -19,7 +19,9 @@ Mikhail Golubkov
 # Preliminary Report
 
 ## 1. Introduction
-Brief introduction to the project and problem.
+This project focuses on the classification of atmospheric new particle formation (NPF) events using environmental sensor data collected at the Hyytiälä forestry field station (SMEAR II mast). NPF refers to the process by which small molecular clusters form into larger aerosol particles, influencing cloud formation, weather patterns, and air quality. Understanding the conditions under which NPF occurs is of significant scientific and environmental importance, particularly for assessing air pollution dynamics and climate interactions.
+The dataset contains daily aggregated meteorological and aerosol measurements, including temperature, humidity, and condensation sink, recorded at multiple heights. Each day is labeled with an event type: nonevent (no NPF) or one of three NPF event classes (Ia, Ib, II). The primary task is to develop a binary classifier to distinguish between event (any NPF type) and nonevent days. The secondary task involves multi-class classification across the four event categories.
+From a machine learning perspective, this represents a supervised classification problem with structured, clean data. The objective is not to achieve state-of-the-art predictive performance, but to systematically apply and evaluate data preprocessing, feature selection, model training, and validation techniques. The project emphasizes methodological rigor, interpretability, and reasoned decision-making over pure accuracy, providing a practical exercise in building, analyzing, and reporting on a real-world classification pipeline.
 
 ## 2. Work Completed to Date
 ### 2.1 Data Acquisition and Initial Setup
