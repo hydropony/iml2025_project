@@ -199,6 +199,34 @@ The model struggles significantly with the minority class Ia (0% precision/recal
 
 **This approach achieved a Kaggle score of 0.739.**
 
+## 4.3 Post-Analysis: Automated Hyperparameter Tuning
+
+Following the success of the two-stage approach, we attempted to further improve performance by implementing an automated hyperparameter tuning pipeline using **Optuna**. We compared this "Tuned Model" against our "Original" manual model.
+
+**Experimental Setup:**
+
+* **Original Model (Manual):** utilized conservative settings such as "max_depth=6" and "learning_rate=0.03", and optimized for **Perplexity**. It employed a "conditional" ensemble strategy, only including the SVM if it explicitly improved validation accuracy.
+* **Tuned Model (Automated):** utilized aggressive search spaces with "max_depth" up to 10 and optimized for **Accuracy**. It employed a "static" heuristic ensemble, weighting XGBoost and SVM (0.7/0.3) regardless of specific validation performance.
+
+**Results:**
+
+| Feature | Original Model | Tuned Model |
+| :--- | :--- | :--- |
+| **Optimization Target** | Perplexity | Accuracy |
+| **Ensembling** | Conditional | Static |
+| **Test 1 Score** | 0.71860 | **0.73493** |
+| **Test 2 Score** | **0.73857** | 0.72885 |
+
+**Key Findings:**
+
+1.  **Metric Mismatch:** The Tuned model optimized for **Accuracy**, ignoring prediction confidence. While it got more labels "right" on the smaller set, it likely produced overconfident probability distributions. The original model, tuned for **Perplexity**, ensured better probability calibration, which is crucial for the evaluation metric used (LogLoss/Perplexity).
+2.  **Overfitting via Aggressive Tuning:** The Tuned model selected deeper trees. While this squeezed extra accuracy out of the cross-validation folds (improving Test 1), it captured noise specific to the training data, leading to poorer generalization on the larger Test 2.
+3.  **Ensemble Stability:** The Original model's strategy of discarding the SVM if it underperformed was safer. The Tuned model forced the SVM into the prediction even when it may have introduced noise, degrading the score on the larger dataset.
+
+Our comparison revealed that aggressive automated tuning is not the perfect answer. The manually tuned model outperformed the automated model on the public test set because it optimized for the correct probabilistic metric (perplexity) rather than raw accuracy. This highlights the importance of aligning the loss function during tuning with the final evaluation metric.
+
+{{< pagebreak >}}
+
 ## 5. Conclusion
 This project explored two approaches to classifying NPF events from atmospheric sensor data, revealing several insights about the problem structure and model selection.
 
